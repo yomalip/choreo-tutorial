@@ -67,7 +67,7 @@ app.get('/appointments/:id', async (req, res) => {
 // Booking endpoint
 app.post('/appointments', async (req, res) => {
     try {
-        const { name, service, phoneNumber, appointmentDate } = req.body;
+        const { name, service, phoneNumber, email, appointmentDate } = req.body;
         const newAppointment = await Appointment.create({ name, service, phoneNumber, email, appointmentDate });
         res.status(201).send(newAppointment);
     } catch (error) {
@@ -78,7 +78,7 @@ app.post('/appointments', async (req, res) => {
 
 app.put('/appointments/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, service, phoneNumber, appointmentDate } = req.body;
+    const { name, service, phoneNumber, email, appointmentDate } = req.body;
 
     try {
         const appointment = Appointment.findOne({ where: { id } });
