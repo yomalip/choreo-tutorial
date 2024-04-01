@@ -1,4 +1,4 @@
-const baseUrl = '/choreo-apis/mdwf/booking-api/booking-5c6/v1/appointments'; // Adjust this URL to match your actual backend endpoint
+const baseUrl = '/choreo-apis/web-portal/backend-ani/appointments-5c6/v1.0/appointments'; // Adjust this URL to match your actual backend endpoint
 
 export const bookAppointment = async (appointmentDetails) => {
   try {
