@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: CareConnect Backend API
+  description: Backend service for the CareConnect frontend.
+  version: "1.0"
+servers:
+  - url: http://localhost:8080
+    description: Development server
+paths:
+  /create-appointment:
+    post:
+      summary: Create an appointment
+      description: Forwards the appointment creation request to the Appointment service with proper authentication.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentRequest'
+      responses:
+        '200':
+          description: Appointment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppointmentResponse'
+        '401':
+          description: Authentication failed
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    AppointmentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John Doe
+        service:
+          type: string
+          example: Dental Checkup
+        phoneNumber:
+          type: string
+          example: '+1234567890'
+        appointmentDate:
+          type: string
+          format: date-time
+          example: '2023-04-30T14:00:00Z'
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+      required:
+        - name
+        - service
+        - phoneNumber
+        - appointmentDate
+        - email
+    AppointmentResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        service:
+          type: string
+          example: Dental Checkup
+        phoneNumber:
+          type: string
+          example: '+1234567890'
+        appointmentDate:
+          type: string
+          format: date-time
+          example: '2023-04-30T14:00:00Z'
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        status:
+          type: string
+          example: Confirmed
+      required:
+        - id
+        - name
+        - service
+        - phoneNumber
+        - appointmentDate
+        - email
+        - status
