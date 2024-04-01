@@ -19,7 +19,7 @@ app.post('/create-appointment', async (req, res) => {
         // Authenticate and get access token
         const accessToken = await authenticate(tokenUrl, clientId, clientSecret);
 
-        const appointmentServiceUrl = process.env.APPOINTMENT_SERVICE_URL;
+        const appointmentServiceUrl = process.env.APPOINTMENT_SERVICE_URL + '/appointments';
         if (!appointmentServiceUrl) {
             throw new Error('Appointment service URL is not defined in the environment variables');
         }
