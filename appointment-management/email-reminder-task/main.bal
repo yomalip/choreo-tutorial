@@ -6,7 +6,7 @@ import ballerina/http;
 configurable string appointmentApiUrl = ?;
 
 type Appointment record {
-    http:DATE appointmentDate;
+    string appointmentDate;
     string email;
     int id;
     string name;
@@ -15,6 +15,7 @@ type Appointment record {
 };
 
 public function main() returns error? {
+    io:println("Appintment URL: " + appointmentApiUrl);
     http:Client appointmentsApiEndpoint = check new(appointmentApiUrl);
 
     // Fetching the appointments
