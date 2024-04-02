@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const { Sequelize } = require('sequelize');
 const express = require('express');
 const bodyParser = require('body-parser');
 const Appointment = require('./appointmentModel'); // Import the model
