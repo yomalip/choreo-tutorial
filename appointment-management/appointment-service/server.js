@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const Appointment = require('./appointmentModel'); // Import the model
 
 const app = express();
-const port = 8080; // You can choose any port that is free
+const port = 8090; // You can choose any port that is free
 
 app.use(bodyParser.json());
 
