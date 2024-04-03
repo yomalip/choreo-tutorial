@@ -24,6 +24,7 @@ spec:
     serviceReferences:
     - name: choreo:///careconnect/appointment-management-a/qhhqea/8b1c3/v1.0/ORGANIZATION
       connectionConfig: 01eef178-3c97-1928-9631-1d573cc39ed5
+      env:
       - from: ServiceURL
         to: APPOINTMENT_SERVICE_URL
       - from: ConsumerKey
