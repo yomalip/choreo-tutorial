@@ -19,12 +19,12 @@ app.post('/create-appointment', async (req, res) => {
         // Authenticate and get access token
         const accessToken = await authenticate(tokenUrl, clientId, clientSecret);
 
-        const appointmentServiceUrl = process.env.APPOINTMENT_SERVICE_URL + '/appointments';
+        const appointmentServiceUrl = process.env.APPOINTMENT_SERVICE_URL;
         if (!appointmentServiceUrl) {
             throw new Error('Appointment service URL is not defined in the environment variables');
         }
 
-        const response = await axios.post(appointmentServiceUrl, req.body, {
+        const response = await axios.post(appointmentServiceUrl + '/appointments', req.body, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             },
