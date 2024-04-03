@@ -22,9 +22,8 @@ spec:
       schemaFilePath: openapi.yaml
   outbound:
     serviceReferences:
-    - name: choreo:///choreointegrationteam/appointment-management/wbxpyb/5c69c/v1.0/PUBLIC
-      connectionConfig: 01eef01a-35f3-1096-89aa-81e565f56a68
-      env:
+    - name: choreo:///careconnect/appointment-management-a/qhhqea/8b1c3/v1.0/ORGANIZATION
+      connectionConfig: 01eef178-3c97-1928-9631-1d573cc39ed5
       - from: ServiceURL
         to: APPOINTMENT_SERVICE_URL
       - from: ConsumerKey
