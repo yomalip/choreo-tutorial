@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { getUpcomingAppointments } from '../services/appointmentService';
+import { services } from '../serviceData';
 import { List, ListItem, ListItemText, Typography, Paper, Avatar, ListItemAvatar, Box } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { format } from 'date-fns';
+
+// Convert service values to labels for display
+const getServiceLabel = (serviceValue) => {
+    const service = services.find(s => s.value === serviceValue);
+    return service ? service.label : serviceValue; // Fallback to the value if not found
+};
 
 const UpcomingAppointments = ({ email, triggerRefresh }) => {
     const [appointments, setAppointments] = useState([]);
@@ -44,7 +51,7 @@ const UpcomingAppointments = ({ email, triggerRefresh }) => {
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
-                            primary={appointment.service}
+                            primary={getServiceLabel(appointment.service)}
                             secondary={`On ${format(new Date(appointment.appointmentDate), 'PPpp')} for ${appointment.name}`}
                         />
                     </ListItem>

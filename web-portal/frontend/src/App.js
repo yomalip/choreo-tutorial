@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, CssBaseline, AppBar, Toolbar, IconButton, Snackbar } from '@mui/material';
+import { Container, Typography, Box, CssBaseline, AppBar, Toolbar, IconButton, Snackbar, Divider } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'; // For logout icon
 import CloseIcon from '@mui/icons-material/Close';
@@ -25,7 +25,7 @@ function App() {
     let isUserInfoSet = false;
     if (process.env.REACT_APP_ENV === 'development') {
       // Mock the authentication flow
-      const mockUserInfo = { username: 'testuser', name : 'Test User' };
+      const mockUserInfo = { username: 'testuser', name: 'Test User' };
       localStorage.setItem('userDetails', JSON.stringify(mockUserInfo));
       isUserInfoSet = true;
     }
@@ -50,7 +50,7 @@ function App() {
 
     setLoading(false); // Set loading to false after authentication check is complete
   }, []);
-  
+
   const triggerAppointmentsRefresh = () => {
     setAppointmentsRefreshKey(prevKey => prevKey + 1);
   };
@@ -106,11 +106,12 @@ function App() {
               <Route path="/" element={
                 <Container maxWidth="sm">
                   <Box sx={{ my: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <Typography component="h1" variant="h5" style={{ marginBottom: 20 }}>
-                        Welcome, {userDetails.name}
-                      </Typography>
-                      <BookingForm userDetails={userDetails} handleOpenSnackbar={handleOpenSnackbar} onBookingSuccess={triggerAppointmentsRefresh}/>
-                      <UpcomingAppointments email={userDetails.email} triggerRefresh={appointmentsRefreshKey} />
+                    <Typography component="h1" variant="h5" style={{ marginBottom: 20 }}>
+                      Welcome, {userDetails.name}
+                    </Typography>
+                    <BookingForm userDetails={userDetails} handleOpenSnackbar={handleOpenSnackbar} onBookingSuccess={triggerAppointmentsRefresh} />
+                    <Divider style={{ margin: '40px 0' }} />
+                    <UpcomingAppointments email={userDetails.email} triggerRefresh={appointmentsRefreshKey} />
                   </Box>
                 </Container>
               } />

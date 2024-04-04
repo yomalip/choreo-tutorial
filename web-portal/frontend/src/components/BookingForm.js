@@ -1,6 +1,7 @@
 // components/BookingForm.js
 
 import React, { useState, useEffect } from 'react';
+import { services } from '../serviceData';
 import { TextField, MenuItem, Button } from '@mui/material';
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -20,12 +21,6 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
         service: '',
         appointmentDate: '',
     });
-
-    const services = [
-        { value: 'general-consultation', label: 'General Consultation' },
-        { value: 'health-screening', label: 'Health Screenings' },
-        { value: 'flu-shots', label: 'Flu Shots' }
-    ];
 
     // Effect to update state when userDetails changes
     useEffect(() => {
