@@ -7,7 +7,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { add, startOfDay } from 'date-fns';
 import { bookAppointment } from '../services/appointmentService';
 
-const BookingForm = ({ userDetails, handleOpenSnackbar }) => {
+const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
     const defaultAppointmentDate = add(startOfDay(new Date()), { days: 1, hours: 10 });
     
     const [name, setName] = useState(userDetails.name || userDetails.username);
@@ -80,6 +80,9 @@ const BookingForm = ({ userDetails, handleOpenSnackbar }) => {
         try {
             await bookAppointment(appointmentDetails);
             handleOpenSnackbar('Appointment booked successfully!');
+
+            onBookingSuccess(); // Add this line. You need to pass this prop from App.js
+
             // Reset form fields
             setService('');
             setAppointmentDate(defaultAppointmentDate);

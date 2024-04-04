@@ -9,6 +9,7 @@ import theme from './theme';
 import LoginPage from './LoginPage';
 import BookingForm from './components/BookingForm';
 import ProtectedRoute from './ProtectedRoute'; // Import your ProtectedRoute component
+import UpcomingAppointments from './components/UpcomingAppointments';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -18,6 +19,7 @@ function App() {
     open: false,
     message: '',
   });
+  const [appointmentsRefreshKey, setAppointmentsRefreshKey] = useState(0);
 
   useEffect(() => {
     let isUserInfoSet = false;
@@ -49,6 +51,10 @@ function App() {
     setLoading(false); // Set loading to false after authentication check is complete
   }, []);
   
+  const triggerAppointmentsRefresh = () => {
+    setAppointmentsRefreshKey(prevKey => prevKey + 1);
+  };
+
   const handleLogout = () => {
     // Clear any stored user information
     setUserDetails({});
@@ -103,7 +109,8 @@ function App() {
                       <Typography component="h1" variant="h5" style={{ marginBottom: 20 }}>
                         Welcome, {userDetails.name}
                       </Typography>
-                      <BookingForm userDetails={userDetails} handleOpenSnackbar={handleOpenSnackbar} />
+                      <BookingForm userDetails={userDetails} handleOpenSnackbar={handleOpenSnackbar} onBookingSuccess={triggerAppointmentsRefresh}/>
+                      <UpcomingAppointments email={userDetails.email} triggerRefresh={appointmentsRefreshKey} />
                   </Box>
                 </Container>
               } />

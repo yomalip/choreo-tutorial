@@ -1,8 +1,11 @@
-const baseUrl = '/choreo-apis/web-portal-a/bff-service/appointments-5c6/v1.0/create-appointment'; // Adjust this URL to match your actual backend endpoint
+import axios from 'axios';
+
+// Replace `APPOINTMENT_SERVICE_URL` with the actual URL of your appointments service
+const APPOINTMENT_SERVICE_URL = '/choreo-apis/web-portal-a/bff-service/appointments-5c6/v1.0';
 
 export const bookAppointment = async (appointmentDetails) => {
   try {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(`${APPOINTMENT_SERVICE_URL}/create-appointment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,5 +22,21 @@ export const bookAppointment = async (appointmentDetails) => {
     return result;
   } catch (error) {
     throw error;
+  }
+};
+
+export const getUpcomingAppointments = async (email) => {
+
+  try {
+    const response = await axios.get(`${APPOINTMENT_SERVICE_URL}/appointments`, {
+      params: {
+        email: email,
+        upcoming: 'true', // Assuming your backend supports this query parameter for filtering upcoming appointments
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching upcoming appointments:', error);
+    throw error; // Rethrowing the error so it can be caught and handled in the component
   }
 };
