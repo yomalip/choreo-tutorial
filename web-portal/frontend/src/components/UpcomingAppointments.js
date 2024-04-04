@@ -52,7 +52,7 @@ const UpcomingAppointments = ({ email, triggerRefresh }) => {
                         </ListItemAvatar>
                         <ListItemText
                             primary={getServiceLabel(appointment.service)}
-                            secondary={`On ${format(new Date(appointment.appointmentDate), 'PPpp')} for ${appointment.name}`}
+                            secondary={`On ${format(new Date(appointment.appointmentDate), 'MMMM d, yyyy, h:mm a')} for ${appointment.name}`}
                         />
                     </ListItem>
                 ))}

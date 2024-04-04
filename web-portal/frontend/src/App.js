@@ -110,7 +110,7 @@ function App() {
                       Welcome, {userDetails.name}
                     </Typography>
                     <BookingForm userDetails={userDetails} handleOpenSnackbar={handleOpenSnackbar} onBookingSuccess={triggerAppointmentsRefresh} />
-                    <Divider style={{ margin: '40px 0' }} />
+                    <Divider style={{ margin: '20px 0' }} />
                     <UpcomingAppointments email={userDetails.email} triggerRefresh={appointmentsRefreshKey} />
                   </Box>
                 </Container>
