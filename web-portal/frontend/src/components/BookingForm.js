@@ -10,7 +10,7 @@ import { bookAppointment } from '../services/appointmentService';
 
 const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
     const defaultAppointmentDate = add(startOfDay(new Date()), { days: 1, hours: 10 });
-    
+
     const [name, setName] = useState(userDetails.name || userDetails.username);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [service, setService] = useState('');
@@ -21,6 +21,7 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
         service: '',
         appointmentDate: '',
     });
+    const [isBooking, setIsBooking] = useState(false);
 
     // Effect to update state when userDetails changes
     useEffect(() => {
@@ -64,13 +65,15 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
         e.preventDefault();
         if (!validateForm()) return;
 
+        setIsBooking(true); // Start loading
+
         const appointmentDetails = {
             name,
             phoneNumber,
             service,
             appointmentDate,
             email: userDetails.email, // Include the email in your appointment details
-          };
+        };
 
         try {
             await bookAppointment(appointmentDetails);
@@ -85,6 +88,8 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
         } catch (error) {
             console.error('Booking failed:', error);
             handleOpenSnackbar('Failed to book the appointment. Please try again.');
+        } finally {
+            setIsBooking(false); // Stop loading regardless of the outcome
         }
     };
 
@@ -144,8 +149,20 @@ const BookingForm = ({ userDetails, handleOpenSnackbar, onBookingSuccess }) => {
                     }}
                 />
             </LocalizationProvider>
-            <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: 20 }} >
+            <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: 20, position: 'relative' }} disabled={isBooking}>
                 Book Appointment
+                {isBooking && (
+                    <CircularProgress
+                        size={24}
+                        style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            marginTop: -12,
+                            marginLeft: -12,
+                        }}
+                    />
+                )}
             </Button>
         </form>
     );
