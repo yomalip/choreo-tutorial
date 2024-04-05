@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Replace `APPOINTMENT_SERVICE_URL` with the actual URL of your appointments service
-const APPOINTMENT_SERVICE_URL = window.config.apiUrl;
+const APPOINTMENT_SERVICE_URL = window.configs.apiUrl;
 
 export const bookAppointment = async (appointmentDetails) => {
   try {
