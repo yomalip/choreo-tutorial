@@ -25,8 +25,6 @@ public function main() returns error? {
         // Sending an email to the patient
         check sendEmail(appointment);
     }
-
-    io:println("Hello, World!");
 }
 
 function sendEmail(Appointment appointment) returns error? {
