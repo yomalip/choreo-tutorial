@@ -1,7 +1,9 @@
+import ballerina/http;
 import ballerina/io;
 import ballerina/log;
+import ballerina/time;
+
 import wso2/choreo.sendemail as ChoreoEmail;
-import ballerina/http;
 
 configurable string appointmentApiUrl = ?;
 
@@ -16,7 +18,7 @@ type Appointment record {
 
 public function main() returns error? {
     io:println("Appintment URL: " + appointmentApiUrl);
-    http:Client appointmentsApiEndpoint = check new(appointmentApiUrl);
+    http:Client appointmentsApiEndpoint = check new (appointmentApiUrl);
 
     // Fetching the appointments
     Appointment[] appointments = check appointmentsApiEndpoint->/appointments(upcoming = "true");
@@ -28,11 +30,15 @@ public function main() returns error? {
 }
 
 function sendEmail(Appointment appointment) returns error? {
+
+    // Format the date as "April 8, 2024, at 5:30 AM"
+    string formattedAppointmentDate = check getIstTimeString(appointment.appointmentDate);
+
     // Appending branding details to the content
-        string finalContent = string `
+    string finalContent = string `
 Dear ${appointment.name},
 
-This is a reminder that you have an appointment scheduled for ${appointment.'service} at ${appointment.appointmentDate}.
+This is a reminder that you have an appointment scheduled for ${appointment.'service} at ${formattedAppointmentDate}.
 
 Thank you for choosing CareConnect for your medical needs. We are here to assist you at every step of your health journey.
 
@@ -59,4 +65,14 @@ This message is intended only for the addressee and may contain confidential inf
     ChoreoEmail:Client emailClient = check new ();
     string sendEmailResponse = check emailClient->sendEmail(appointment.email, "Upcoming Appointment Reminder", finalContent);
     log:printInfo("Email sent successfully to: " + appointment.email + " with response: " + sendEmailResponse);
+}
+
+function getIstTimeString(string utcTimeString) returns string|error {
+    time:Utc utcTime = check time:utcFromString(utcTimeString);
+
+    time:TimeZone zone = check new("Asia/Colombo");
+    time:Civil istTime = zone.utcToCivil(utcTime);
+
+    string emailFormattedString = check time:civilToEmailString(istTime, time:PREFER_TIME_ABBREV);
+    return  emailFormattedString;
 }
