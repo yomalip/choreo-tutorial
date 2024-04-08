@@ -34,11 +34,14 @@ function sendEmail(Appointment appointment) returns error? {
     // Format the date as "April 8, 2024, at 5:30 AM"
     string formattedAppointmentDate = check getIstTimeString(appointment.appointmentDate);
 
+    // Capitalize the service name
+    string serviceName = convertAndCapitalize(appointment.'service);
+
     // Appending branding details to the content
     string finalContent = string `
 Dear ${appointment.name},
 
-This is a reminder that you have an appointment scheduled for ${appointment.'service} at ${formattedAppointmentDate}.
+This is a reminder that you have an appointment scheduled for ${serviceName} at ${formattedAppointmentDate}.
 
 Thank you for choosing CareConnect for your medical needs. We are here to assist you at every step of your health journey.
 
@@ -70,9 +73,28 @@ This message is intended only for the addressee and may contain confidential inf
 function getIstTimeString(string utcTimeString) returns string|error {
     time:Utc utcTime = check time:utcFromString(utcTimeString);
 
-    time:TimeZone zone = check new("Asia/Colombo");
+    time:TimeZone zone = check new ("Asia/Colombo");
     time:Civil istTime = zone.utcToCivil(utcTime);
 
     string emailFormattedString = check time:civilToEmailString(istTime, time:PREFER_TIME_ABBREV);
-    return  emailFormattedString;
+    return emailFormattedString;
+}
+
+function convertAndCapitalize(string input) returns string {
+    string:RegExp r = re `-`;
+    // Split the input string by '-'
+    string[] parts = r.split(input);
+
+    // Capitalize the first letter of each part and join them with a space
+    string result = "";
+    foreach var word in parts {
+        string capitalizedWord = word.substring(0, 1).toUpperAscii() + word.substring(1).toLowerAscii();
+        if (result.length() > 0) {
+            result = result + " " + capitalizedWord;
+        } else {
+            result = capitalizedWord;
+        }
+    }
+
+    return result;
 }
