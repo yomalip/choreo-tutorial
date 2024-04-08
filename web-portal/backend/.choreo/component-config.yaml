@@ -22,8 +22,8 @@ spec:
       schemaFilePath: openapi.yaml
   outbound:
     serviceReferences:
-    - name: choreo:///wso2demoacct/appointment-management/hsgyof/8b1c3/v1.0/ORGANIZATION
-      connectionConfig: 01eef4ff-13bc-1286-90d0-0409eb13c8c8
+    - name: choreo:///asankatest2/appointment-management/bpyhoh/8b1c3/v1.0/ORGANIZATION
+      connectionConfig: 01eef59a-043d-1ed6-ba58-d92c79577e13
       env:
       - from: ServiceURL
         to: APPOINTMENT_SERVICE_URL
