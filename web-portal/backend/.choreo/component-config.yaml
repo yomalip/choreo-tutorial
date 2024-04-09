@@ -22,8 +22,8 @@ spec:
       schemaFilePath: openapi.yaml
   outbound:
     serviceReferences:
-    - name: choreo:///careconnect/web-portal/uqqbel/8b1c3/v1.0/ORGANIZATION
-      connectionConfig: 01eef65a-7e35-1ab6-ae8e-981ace8b4000
+    - name: choreo:///asanka89/appointment-management/dqcuqv/8b1c3/v1.0/ORGANIZATION
+      connectionConfig: 01eef66b-120f-1730-8437-b98cf66be60c
       env:
       - from: ServiceURL
         to: APPOINTMENT_SERVICE_URL
