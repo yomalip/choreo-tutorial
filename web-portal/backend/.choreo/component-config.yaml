@@ -22,14 +22,14 @@ spec:
       schemaFilePath: openapi.yaml
   outbound:
     serviceReferences:
-    - name: choreo:///codechallenge/appointment-management/cmrqnc/8b1c3/v1.0/ORGANIZATION
-      connectionConfig: 01eef67c-b6e6-17c0-9120-68782ddbb0c9
+    - name: choreo:///contute/appointment-management/xfrunw/8b1c3/v1/ORGANIZATION
+      connectionConfig: 01ef0912-8f4c-1a18-a82a-a727e1cc6c51
       env:
       - from: ServiceURL
-        to: APPOINTMENT_SERVICE_URL
+        to: <YOUR_ENV_VARIABLE_NAME_HERE>
       - from: ConsumerKey
-        to: APPOINTMENTS_OAUTH_CLIENT_ID
+        to: <YOUR_ENV_VARIABLE_NAME_HERE>
       - from: ConsumerSecret
-        to: APPOINTMENTS_OAUTH_CLIENT_SECRET
+        to: <YOUR_ENV_VARIABLE_NAME_HERE>
       - from: TokenURL
-        to: APPOINTMENTS_OAUTH_TOKEN_URL
+        to: <YOUR_ENV_VARIABLE_NAME_HERE>
